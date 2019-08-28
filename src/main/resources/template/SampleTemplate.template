@@ -1,0 +1,11 @@
+# 此为示例模板 生成前请务必删除此文件
+# table-表名-实体类名-注释
+table-t_student-Student-学生类
+#字段名-java类型-成员变量名-注释-是否主键
+id-int-id-编号-true
+name-String-name-姓名-false
+sex-int-sex-性别-false
+add_time-String-addTime-增加时间-false
+state-int-state-状态-false
+del-int-del-删除标志-false
+remark-String-remark-备注-false

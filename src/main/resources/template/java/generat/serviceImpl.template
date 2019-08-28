@@ -1,0 +1,58 @@
+package ${packageName};
+
+import ${daoPackageName}.I${entityName}Mapper;
+import ${pojoPackageName}.${entityName};
+import ${pojoPackageName}.${entityName}Collection;
+import ${pojoPackageName}.${entityName}Condition;
+import ${servicePackageName}.I${entityName}Service;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Service;
+
+import javax.annotation.Resource;
+import java.util.List;
+
+@Service
+@Slf4j
+public class ${entityName}ServiceImpl implements I${entityName}Service {
+
+    @Resource
+    private I${entityName}Mapper ${entityNameLowerCase}Mapper;
+    @Override
+    public ${entityName} save${entityName}(${entityName} ${entityNameLowerCase}) {
+        int row = ${entityNameLowerCase}Mapper.save${entityName}(${entityNameLowerCase});
+        if(row > 0){
+            return ${entityNameLowerCase};
+        }
+        return null;
+    }
+
+    @Override
+    public int update${entityName}(${entityName} ${entityNameLowerCase}) {
+        return ${entityNameLowerCase}Mapper.update${entityName}(${entityNameLowerCase});
+    }
+
+    @Override
+    public int remove${entityName}ById(long id) {
+        return ${entityNameLowerCase}Mapper.remove${entityName}ById(id);
+    }
+
+    @Override
+    public ${entityName} get${entityName}ById(long id) {
+        return ${entityNameLowerCase}Mapper.get${entityName}ById(id);
+    }
+
+    @Override
+    public ${entityName}Collection list${entityName}ByCondition(${entityName}Condition ${entityNameLowerCase}Condition) {
+        int totalCount = ${entityNameLowerCase}Mapper.count${entityName}ByCondition(${entityNameLowerCase}Condition);
+        List<${entityName}> entityList = ${entityNameLowerCase}Mapper.list${entityName}ByCondition(${entityNameLowerCase}Condition);
+        ${entityName}Collection ${entityNameLowerCase}Collection = new ${entityName}Collection();
+        ${entityNameLowerCase}Collection.setTotalCount(totalCount);
+        ${entityNameLowerCase}Collection.setEntityList(entityList);
+        return ${entityNameLowerCase}Collection;
+    }
+
+    @Override
+    public List<${entityName}> list${entityName}All() {
+        return ${entityNameLowerCase}Mapper.list${entityName}All();
+    }
+}

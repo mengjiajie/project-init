@@ -1,0 +1,22 @@
+package ${packageName};
+
+import ${entityFullName};
+import ${conditionFullName};
+import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
+
+import java.util.List;
+
+
+@Repository
+public interface I${entityName}Mapper {
+    int save${entityName}(${entityName} ${entityNameLowerCase});
+    int update${entityName}(${entityName} ${entityNameLowerCase});
+    int remove${entityName}ById(@Param("id") long id);
+    ${entityName} get${entityName}ById(@Param("id") long id);
+    int count${entityName}ByCondition(${entityName}Condition ${entityNameLowerCase}Condition);
+    List<${entityName}> list${entityName}ByCondition(${entityName}Condition ${entityNameLowerCase}Condition);
+    List<${entityName}> list${entityName}All();
+
+
+}

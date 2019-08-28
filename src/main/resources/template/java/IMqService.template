@@ -1,0 +1,15 @@
+package ${packageName};
+
+/**
+ * Created with IntelliJ IDEA.
+ * User: ZHJJ
+ * Date: 2018/5/4
+ * Time: 23:22
+ * To change this template use File | Settings | File Templates.
+ */
+public interface IMqService {
+    /*发送消息到队列的方法，其中TerminalStateProtoBuf是proto格式的消息，根据实际情况更改*/
+    /*
+    void reportTerminalState(String restaurantId,TerminalStateProtoBuf.TerminalState.StateType stateType);
+    */
+}

@@ -1,0 +1,41 @@
+package ${packageName};
+
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Service;
+import ${interfaceFullName};
+import lombok.extern.slf4j.Slf4j;
+/**
+ * Created with IntelliJ IDEA.
+ * User: ZHJJ
+ * Date: 2018/5/4
+ * Time: 23:22
+ * To change this template use File | Settings | File Templates.
+ */
+
+@Service
+@Slf4j
+public class MqService implements IMqService {
+
+    /*发送消息模板，可根据实际情况更改*/
+    @Autowired
+    @Qualifier("tempTemplate")
+    RabbitTemplate tempTemplate;
+
+    /*发送消息到队列的方法，其中TerminalStateProtoBuf是proto格式的消息，根据实际情况更改*/
+    /*
+    @Override
+    public void reportTerminalState(String restaurantId,TerminalStateProtoBuf.TerminalState.StateType stateType) {
+        try {
+            TerminalStateProtoBuf.TerminalState.Builder builder = TerminalStateProtoBuf.TerminalState.newBuilder();
+            builder.setRestaurantId(restaurantId);
+            builder.setState(stateType);
+            tempTemplate.convertAndSend(builder.build());
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.err.println(e.getCause());
+        }
+    }
+    */
+}

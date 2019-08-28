@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="${daoPackageName}.I${entityName}Mapper">
+
+    <resultMap id="${entityNameLowerCase}" type="${pojoPackageName}.${entityName}">
+${resultCode}
+    </resultMap>
+
+    <sql id="${entityNameLowerCase}Set">
+        <set>
+            <trim prefix="" prefixOverrides=",">
+${setCode}
+
+            </trim>
+        </set>
+    </sql>
+    <sql id="${entityNameLowerCase}Where">
+        <where>
+
+${whereCode}
+
+
+        </where>
+    </sql>
+
+
+    <insert id="save${entityName}" parameterType="${pojoPackageName}.${entityName}" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO ${tableName}
+        <include refid="${entityNameLowerCase}Set"/>
+    </insert>
+
+
+
+    <update id="update${entityName}" parameterType="${pojoPackageName}.${entityName}" flushCache="true">
+        UPDATE ${tableName}
+        <include refid="${entityNameLowerCase}Set"/>
+        where id = #{id}
+    </update>
+    <update id="remove${entityName}ById" parameterType="long">
+
+        UPDATE ${tableName}
+        SET del = 1
+        WHERE id = #{id}
+
+    </update>
+    <select id="get${entityName}ById" resultMap="${entityNameLowerCase}" parameterType="long">
+        SELECT * from ${tableName} where id = #{id}
+    </select>
+    <select id="count${entityName}ByCondition" resultType="java.lang.Integer" parameterType="${pojoPackageName}.${entityName}Condition">
+        select count(1) from ${tableName}
+        <include refid="${entityNameLowerCase}Where"/>
+
+    </select>
+    <select id="list${entityName}ByCondition" resultMap="${entityNameLowerCase}" parameterType="${pojoPackageName}.${entityName}Condition">
+        select * from ${tableName}
+        <include refid="${entityNameLowerCase}Where"/>
+        limit #{offset},#{max}
+    </select>
+    <select id="list${entityName}All" resultMap="${entityNameLowerCase}" >
+        select * from ${tableName} where del = 0
+    </select>
+
+
+</mapper>

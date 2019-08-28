@@ -1,0 +1,17 @@
+package ${packageName};
+
+import lombok.Data;
+
+
+@Data
+public class ${entityName}Condition {
+
+    private int offset;
+    private int max=10;
+
+${filed}
+
+
+
+
+}

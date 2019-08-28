@@ -1,0 +1,104 @@
+package ${packageName};
+
+
+import ${handlerFullName};
+import org.springframework.amqp.core.DirectExchange;
+import org.springframework.amqp.core.TopicExchange;
+import org.springframework.amqp.rabbit.annotation.EnableRabbit;
+import org.springframework.amqp.rabbit.connection.ConnectionFactory;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer;
+import org.springframework.amqp.rabbit.listener.adapter.MessageListenerAdapter;
+import org.springframework.amqp.support.converter.MessageConverter;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
+import lombok.extern.slf4j.Slf4j;
+/**
+ * Created with IntelliJ IDEA.
+ * User: ZHJJ
+ * Date: 2018/5/4
+ * Time: 23:22
+ * To change this template use File | Settings | File Templates.
+ */
+@Configuration
+@EnableRabbit
+@Slf4j
+public class RabbitConfig {
+
+
+    @Value("${exchange.name}")
+    private String exchangeName;
+    @Value("${topic.exchange.name}")
+    private String topicExchangeName;
+
+    /*队列名称,请根据实际情况更改*/
+    @Value("${qu.terminal.manage}")
+    private String tempQuequeName;
+
+    /*路由关键字,请根据实际情况更改*/
+    @Value("${rk.terminal.state}")
+    private String tempRoutingkey;
+
+    @Autowired
+    private ConnectionFactory rabbitConnectionFactory;
+
+
+
+    /*消息格式转换器，可根据实际情况更改*/
+    @Autowired
+    @Qualifier("tempConverter")
+    private MessageConverter tempConverter;
+
+    /*消息处理器，可根据实际情况更改*/
+    @Autowired
+    private TempHandler tempHandler;
+
+
+    @Bean
+    public DirectExchange directExchange() {
+        return new DirectExchange(exchangeName, true, false);
+    }
+
+    @Bean
+    public TopicExchange topicExchange() {
+        return new TopicExchange(topicExchangeName, true, false);
+    }
+
+    /*发送模板，可根据实际情况更改*/
+    @Bean(name = "tempTemplate")
+    public RabbitTemplate tempTemplate() {
+        RabbitTemplate r = new RabbitTemplate(rabbitConnectionFactory);
+        r.setExchange(topicExchangeName);
+        r.setRoutingKey(tempRoutingkey);
+        r.setConnectionFactory(rabbitConnectionFactory);
+        //注意此处
+        r.setMessageConverter(tempConverter);
+        return r;
+    }
+
+    @Bean
+    public MessageListenerAdapter tempListenerAdapter() {
+        MessageListenerAdapter terminalManageListenerAdapter =
+                new MessageListenerAdapter(tempHandler);
+              //注意此处
+        terminalManageListenerAdapter.setMessageConverter(tempConverter);
+        terminalManageListenerAdapter.setDefaultListenerMethod("handleMessage");
+        return terminalManageListenerAdapter;
+    }
+
+    @Bean
+    public SimpleMessageListenerContainer terminalManageListenerContainer() {
+        SimpleMessageListenerContainer listenerContainer =
+                new SimpleMessageListenerContainer();
+        listenerContainer.setConnectionFactory(rabbitConnectionFactory);
+        listenerContainer.setQueueNames(tempQuequeName);
+        listenerContainer.setConcurrentConsumers(10);
+        listenerContainer.setMessageListener(tempListenerAdapter());
+        listenerContainer.setAutoStartup(true);
+        return listenerContainer;
+    }
+}

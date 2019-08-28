@@ -1,0 +1,45 @@
+package ${packageName};
+
+//import com.google.protobuf.InvalidProtocolBufferException;
+import org.springframework.amqp.core.Message;
+import org.springframework.amqp.core.MessageProperties;
+import org.springframework.amqp.support.converter.AbstractMessageConverter;
+import org.springframework.amqp.support.converter.MessageConversionException;
+import org.springframework.stereotype.Component;
+/*Proto格式消息，请根据实际情况更改*/
+//import com.suweia.protobuf.TerminalStateProtoBuf;
+import lombok.extern.slf4j.Slf4j;
+/**
+ * Created by getfa on 2015/7/28.
+ */
+@Component("tempConverter")
+@Slf4j
+public class TempConverter extends AbstractMessageConverter {
+
+    @Override
+    protected Message createMessage(Object o, MessageProperties messageProperties) {
+        /*请根据实际情况，更改*/
+        /*
+        TerminalStateProtoBuf.TerminalState terminalState = (TerminalStateProtoBuf.TerminalState) o;
+        byte[] byteArray = terminalState.toByteArray();
+        */
+        byte[] byteArray = new byte[]{};//更改代码后，请删除这行
+        return new Message(byteArray, messageProperties);
+    }
+
+    @Override
+    public Object fromMessage(Message message) throws MessageConversionException {
+        /*请根据实际情况，更改*/
+        /*
+        TerminalStateProtoBuf.TerminalState terminalState =  null;
+        try {
+            terminalState = TerminalStateProtoBuf.TerminalState.parseFrom(message.getBody());
+        } catch (InvalidProtocolBufferException e) {
+            e.printStackTrace();
+            return null;
+        }
+        return terminalState;
+        */
+        return null; //更改代码后，请删除这行
+    }
+}

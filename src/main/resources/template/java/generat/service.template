@@ -1,0 +1,16 @@
+package ${packageName};
+
+import ${pojoPackageName}.${entityName};
+import ${pojoPackageName}.${entityName}Collection;
+import ${pojoPackageName}.${entityName}Condition;
+import java.util.List;
+
+public interface I${entityName}Service {
+    ${entityName} save${entityName}(${entityName} ${entityNameLowerCase});
+    int update${entityName}(${entityName} ${entityNameLowerCase});
+    int remove${entityName}ById(long id);
+    ${entityName} get${entityName}ById(long id);
+    ${entityName}Collection list${entityName}ByCondition(${entityName}Condition ${entityNameLowerCase}Condition);
+    List<${entityName}> list${entityName}All();
+
+}

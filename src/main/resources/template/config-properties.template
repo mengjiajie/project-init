@@ -1,0 +1,26 @@
+
+#eureka服务的地址
+eureka.url=http://localhost:10000/eureka/
+#服务的端口号
+port=10002
+
+# 是否依赖redis组件
+need.redis=false
+#如果依赖redis 请填写正确的ip 如果不依赖,请保持原样,不要自以为是的删除
+redis.ip=192.168.1.3
+
+#数据库相关
+#url
+datasource.url=jdbc:mysql://localhost:3306/databasename?characterEncoding=utf8&allowMultiQueries=true&autoReconnect=true&useSSL=false
+#username
+datasource.username=you
+#password
+datasource.password=fuck
+
+# 是否依赖mq组件
+need.mq=false
+#如果依赖mq 请填写正确的值 如果不依赖,请保持原样,不要自以为是的删除
+mq.ip=192.168.1.4
+mq.username=test
+mq.password=123456
+mq.host=test

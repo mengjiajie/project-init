@@ -1,0 +1,58 @@
+package ${packageName};
+
+import ${pojoPackageName}.${entityName};
+import ${pojoPackageName}.${entityName}Collection;
+import ${pojoPackageName}.${entityName}Condition;
+import ${servicePackageName}.I${entityName}Service;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+import java.util.List;
+
+@RestController
+public class ${entityName}Controller {
+
+    @Autowired
+    private I${entityName}Service ${entityNameLowerCase}Service;
+
+
+    @RequestMapping(value = "/${entityNameLowerCase}s",method = RequestMethod.POST)
+    public ${entityName} save${entityName}(@RequestBody ${entityName} ${entityNameLowerCase}){
+        return ${entityNameLowerCase}Service.save${entityName}(${entityNameLowerCase});
+    }
+
+
+
+    @RequestMapping(value = "/${entityNameLowerCase}s/{id}",method = RequestMethod.DELETE)
+    public int remove${entityName}ById(@PathVariable("id") long id){
+        return ${entityNameLowerCase}Service.remove${entityName}ById(id);
+    }
+
+
+
+    @RequestMapping(value = "/${entityNameLowerCase}s",method = RequestMethod.PUT)
+    public int update${entityName}(@RequestBody ${entityName} ${entityNameLowerCase}){
+        return ${entityNameLowerCase}Service.update${entityName}(${entityNameLowerCase});
+    }
+
+
+
+
+    @RequestMapping(value = "/${entityNameLowerCase}s/{id}",method = RequestMethod.GET)
+    public ${entityName} get${entityName}ById(@PathVariable("id") long id){
+        return ${entityNameLowerCase}Service.get${entityName}ById(id);
+    }
+
+
+
+    @RequestMapping(value = "/${entityNameLowerCase}s/list",method = RequestMethod.POST)
+    public ${entityName}Collection list${entityName}ByCondition(@RequestBody ${entityName}Condition ${entityNameLowerCase}Condition){
+        return ${entityNameLowerCase}Service.list${entityName}ByCondition(${entityNameLowerCase}Condition);
+    }
+
+    @RequestMapping(value = "/${entityNameLowerCase}s",method = RequestMethod.GET)
+    public List<${entityName}> list${entityName}All(){
+        return ${entityNameLowerCase}Service.list${entityName}All();
+    }
+
+
+}

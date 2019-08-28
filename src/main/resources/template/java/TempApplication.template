@@ -1,0 +1,26 @@
+package ${packageName};
+
+import org.mybatis.spring.annotation.MapperScan;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
+import lombok.extern.slf4j.Slf4j;
+
+/**
+ * Created with IntelliJ IDEA.
+ * User: ZHJJ
+ * Date: 2018/5/4
+ * Time: 23:22
+ * To change this template use File | Settings | File Templates.
+ */
+@EnableEurekaClient
+@SpringBootApplication
+@MapperScan("${daoPackageName}")
+@EnableTransactionManagement(proxyTargetClass = true)
+@Slf4j
+public class ${className} {
+    public static void main(String[] args) {
+        SpringApplication.run(${className}.class, args);
+    }
+}
